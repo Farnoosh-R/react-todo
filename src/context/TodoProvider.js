@@ -69,8 +69,42 @@ const TodoProvider = ({children}) => {
         })
     }
 
+    const updateTodo = (todo) => {
+
+        fetch(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              id: 1,
+              title: todo.title,
+              completed: !todo.completed,
+            }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+          })
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                dispatch({type: 'UPDATE_TODO', payload: data})
+                dispatch({type: 'SET_ERROR', payload: null})
+                Swal.fire({
+                    title: "task added",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000,
+                    toast: true,
+                    position: 'top',
+                  });
+            }).catch(err => {
+                dispatch({type: 'SET_ERROR', payload: err.message})
+                dispatch({type: 'ADD_TODO', payload: []})
+            })
+
+    } 
+
 return(
-    <TodoContext.Provider value={{...state, getTodo, getFilterTodo, addTodo}}>
+    <TodoContext.Provider value={{...state, getTodo, getFilterTodo, addTodo, updateTodo}}>
     {children}
     </TodoContext.Provider>
 )
