@@ -12,6 +12,12 @@ const TodoReducer = (state, action) => {
           ...state,
           todos: action.payload
         };
+        case "ADD_TODO":
+          console.log(action);
+          return {
+            ...state,
+            todos: [action.payload, ...state.todos]
+          };
       case "SET_ERROR":
         return {
           ...state,
