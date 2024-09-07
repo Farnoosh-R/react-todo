@@ -18,10 +18,11 @@ const FilterTodos = () => {
       <div className="col-md-2">
         <div className="row">
           <select onChange={(e) => handleFilter(e.target.value)} className="form-select">
-            <option value="all">all</option>
+            <option value="200">all</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="100">100</option>
+            <option value="200">200</option>
           </select>
           {loading && <div className="spinner-border"></div>}
         </div>

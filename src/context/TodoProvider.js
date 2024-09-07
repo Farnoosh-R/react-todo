@@ -102,9 +102,34 @@ const TodoProvider = ({children}) => {
             })
 
     } 
+    const removeTodo = (todoId) => {
+
+        fetch(`https://jsonplaceholder.typicode.com/posts/${todoId}`, {
+            method: 'DELETE',
+          })
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                dispatch({type: 'REMOVE_TODO', payload: todoId})
+                dispatch({type: 'SET_ERROR', payload: null})
+                Swal.fire({
+                    title: "deleted",
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000,
+                    toast: true,
+                    position: 'top',
+                  });
+            }).catch(err => {
+                dispatch({type: 'SET_ERROR', payload: err.message})
+                dispatch({type: 'REMOVE_TODO', payload: []})
+            })
+
+    } 
 
 return(
-    <TodoContext.Provider value={{...state, getTodo, getFilterTodo, addTodo, updateTodo}}>
+    <TodoContext.Provider value={{...state, getTodo, getFilterTodo, addTodo, updateTodo, removeTodo}}>
     {children}
     </TodoContext.Provider>
 )

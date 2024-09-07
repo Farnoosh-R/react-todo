@@ -3,6 +3,7 @@ import TodoContext from "../context/TodoContext";
 import FilterTodos from "../components/todos/Filter";
 import CreateTodo from "../components/todos/Create";
 import UpdateTodo from "../components/todos/Update";
+import DeleteTodo from "../components/todos/DeleteTodo";
 
 const Todo = () => {
   const { todos, getTodo, error } = useContext(TodoContext);
@@ -31,7 +32,7 @@ const Todo = () => {
                   {todo.completed ? <del>{todo.title}</del> : <span>{todo.title}</span> }
                   <div className="mr-auto">
                   <UpdateTodo todo={todo}/>
-                    <i class="bi bi-trash"></i>
+                  <DeleteTodo todoId={todo.id}/>
                   </div>
                 </div>
               </div>
